@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname lec03c) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 An important motivation for algorithm/data-structure design is
 performance. But before we can talk about the relative performance of
 various algorithms and data structures, we need some way to measure
@@ -164,7 +167,7 @@ And, in general:
 
 Here's the mathematically precise definition:
 
- O(f) = {g | exists n0, m: forall n > n0, f(n) <= m*g(n) }
+; O(f) = {g | exists n0, m: for all n > n0, g(n) <= m*f(n) }
 
 What is this saying intuitively? Think of "n0" as indicating where the
 input got big enough and "m" as that newer computer that speeds things
@@ -189,7 +192,7 @@ so that should be true of the number max(c,n)+1 because it is true of
 all numbers. Lets call max(c,n)=X.
 
    (X+1)*(X+1) <= c*(X+1)
-   X^2+2*X+1 <= c*X+1
+   X^2+2*X+1 <= c*X+c
    X^2+2*X <= c*X
 
 expand out X:
@@ -200,7 +203,7 @@ Okay, so we know that c and n must be related to each other by
 >=. Lets first assume that c >= n and thus we can simplify the uses of
 max
 
-     c*c + c*c <= c*c
+     c*c + 2*c <= c*c
 
 which tells us that c = 0 (that's the only way to satisfy that).  but
 we know that n is at least 1 and we know that c >= n, so c =/= 0.
@@ -244,6 +247,14 @@ design it. It needs a slightly different data definition:
 	     (biggest (rest l))]
 	    [else (first l)])]))
 
+
+
+ (< (first l) (biggest (rest l)))
+(< (first l) (< (first (rest l) (biggest (rest (rest l))))))
+(< (first l) (< (first (rest (rest l)) (biggest (rest (rest (rest l)))))))
+....
+(rest...(rest l) -> '()
+  
 What is the running time of this function?
 
 Well, in the first case then its running time is 4. What if there are
