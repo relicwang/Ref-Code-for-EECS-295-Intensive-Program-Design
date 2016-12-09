@@ -29,10 +29,13 @@
 ; by `edges`.
 (define (build-wdigraph nodes edges)
   (define adjacencies (make-vector nodes '()))
+  
   (define (cons! edge v)
     (vector-set! adjacencies v (cons edge (vector-ref adjacencies v))))
+  
   (for ([edge edges])
     (cons! (make-wedge (first edge) (second edge) (third edge)) (first edge)))
+  
   (make-wgraph nodes (lambda (v) (vector-ref adjacencies v))))
 
 ; build-wugraph : Nat [List-of [List Nat Number Nat]] -> WGraph

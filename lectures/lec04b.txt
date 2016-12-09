@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname lec04b) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 Abstraction
 -----------
 
@@ -60,7 +63,7 @@ Here is what we get:
   (cond
     [(empty? (rest l)) (first l)]
     [else
-     (local [(define rb (smallest (rest l)))]
+     (local [(define rb (est (rest l)))]
        (cond
          [(p (first l) rb)
           rb]
@@ -116,6 +119,41 @@ Here's the data definition for lists of X
 lets be sure:
 
   (est < (cons 1 (cons 2 '())))
+
+
+(define (est p l)
+  (cond
+    [(empty? (rest l)) (first l)]
+    [else
+     (local [(define rb (est (rest l)))]
+       (cond
+         [(p (first l) rb)
+          rb]
+         [else (first l)]))]))
+
+
+(est < (list 1 2))
+
+= (define rb (est < (list 2)))
+   (cond
+     [(< (1 rb)
+      rb]
+     [else 1])
+
+= (define rb 2)
+   (cond
+     [(< (1 2)
+      2]
+     [else 1])
+=2
+
+
+
+
+
+
+
+
 = (local [(define rb (est < (cons 2 '())))]
     (cond
       [(< 1 rb) rb]
@@ -127,4 +165,3 @@ lets be sure:
 = 2
 
 Sure, the same rules all work just fine!
-

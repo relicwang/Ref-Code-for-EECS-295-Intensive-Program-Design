@@ -1,0 +1,146 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname graph-implement) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;; a graph
+;;(make-graph nat [nat -> [list-of-nats]])
+
+(define-struct graph (nodes neighbor))
+
+;;a list-of-nats is either:
+;;  -'()
+;;  -(cons nat (list-of-nats))
+#|
+Here is a graph:
+
+      0
+     /
+    /  
+   1     2
+   |\   /|
+   | \ / |
+   3  4  5
+    \ | /
+     \|/
+      6
+
+(draw arrows going down)|#
+
+;;graph example
+(define graph-sample1 (make-graph
+ 7
+ (lambda (node)
+   (cond
+     [(= node 0) (list 1)]
+     [(= node 1) (list 3 4)]
+     [(= node 2) (list 4 5)]
+     [(= node 3) (list 6)]
+     [(= node 4) (list 6)]
+     [(= node 5) (list 6)]
+     [(= node 6) '()])))
+)
+;; add-edge : graph nat nat -> graph
+#;(define (add-edge graph num1 num2)
+(make-graph
+ (graph-nodes graph)
+ (lambda (node)
+   (get-neibors node)) ))
+
+;;graph=? : graph graph -> boolean
+;;Check whether two graphs are identical
+
+(define (graph=? g1 g2)
+  (cond
+    [(= (graph-nodes g1) (graph-nodes g2))
+     (cond  
+      [(neighbors=? g1 g2 (graph-nodes g1))
+       #true]
+      [else
+       #f])  ]
+    [else  #false]
+  ))
+
+
+;;neighbors=? : graph graph -> boolean
+;;Check whether neighbors of two graphs
+;;are identical
+
+(define (neighbors=? g1 g2 n)
+  (and (equal? ((graph-neighbor g1) (- n 1))
+               ((graph-neighbor g2) (- n 1)))
+       (neighbors=? g1 g2 (- n 1))
+  ))
+
+(define a-graph 
+  (make-graph 2
+	      (lambda (x)
+		(cond
+		 [(= x 0) (list 1)]
+		 [(= x 1) (list 0)]
+		 [(= x 2) '()]))))
+
+#|;;----------bug version, that does not handle loop-------------
+;; route-exists? : graph nat nat -> boolean
+;;ASSUMPTION: no loop is allowed
+(check-expect (route-exists? graph-sample1 0 3) #t)
+(check-expect (route-exists? graph-sample1 0 2) #f)
+
+(define (route-exists? g src dest)
+  (cond
+    [(= src dest) #true]
+    [else
+    (route-exists?-helper g ((graph-neighbor g) src) dest)]))
+
+;; route-exists?-helper : graph [list of nats] nat -> boolean
+;; Check whether the neighbor can connect to the des
+
+(define (route-exists?-helper g src-lst dest)
+  (cond
+    [(empty? src-lst) #false]
+    [else
+     (or (route-exists? g (first src-lst) dest)
+         (route-exists?-helper g (rest src-lst) dest))]))
+
+#|
+(route-exists? a-graph 0 2)
+= (route-exists?-helper a-graph (list 1) 2)
+= (route-exists? a-graph 1 2)
+= (route-exists?-helper a-graph (list 0) 2)
+= (route-exists? a-graph 0 2)
+|#
+
+|#
+
+;;----Improved version that can handle the loop--
+(define (route-exists? g src dest check-list)
+  (cond
+    [(= src dest) #true]
+    [else
+     (local [(define updt-ck-lst (cons src check-list))] 
+       (route-exists?-helper g ((graph-neighbor g) src) dest updt-ck-lst))]))
+
+
+
+(define (route-exists?-helper g src-lst dest check-list)
+  (cond
+    [(empty? src-lst) #false]
+    [else
+     (or
+     (cond
+      [(is-in-check-list? (first src-lst) check-list)  #false ]
+      [else  (route-exists? g (first src-lst) dest check-list)])   
+         (route-exists?-helper g (rest src-lst) dest check-list))]))
+
+(define (is-in-check-list? num list)
+  (member? num list))
+
+#|
+(route-exists? a-graph 0 1 '())
+
+(route-exists? b-graph A Y '())
+=(route-exists?-helper b-graph (list A B) Y (list START))
+= (or 
+    (route-exists? b-graph A Y (list START))
+    (route-exists?-helper b-graph (list B) Y (list START)))
+= (or 
+    (route-exists?-helper b-graph (list C D) Y (list START A)))
+     (route-exists?-helper b-graph (list B) Y (list START))|#

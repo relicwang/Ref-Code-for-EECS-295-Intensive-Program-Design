@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname lec06a) (read-case-sensitive #t) (teachpacks ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp")) #f)))
 Abstract Data Types
 ===================
 
@@ -53,7 +56,7 @@ How would you represent queues?
 Here are two ideas:
 
   - Represent the queue «a0 a1 a2« as (cons a0 (cons a1 (cons a2 '())))
-  - Represent the queue «a0 a1 a2« as (cons a2 (cons a2 (cons a0 '())))
+  - Represent the queue «a0 a1 a2« as (cons a2 (cons a1 (cons a0 '())))
 
 Which do you prefer? Why? Let’s implement them.
 
@@ -93,7 +96,8 @@ Consider this ADT:
       (get-top |») => ERROR
 
       (pop |a0 ... ak») => |a0 ...»
-      (pop |») => ERROR
+      (pop |») =>  ERROR
+     
 
 Note that the signature of the ADT (that is, the signatures of the
 operations) is the same! But the laws specify different behavior.

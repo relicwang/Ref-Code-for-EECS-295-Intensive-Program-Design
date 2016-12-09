@@ -1,4 +1,4 @@
-﻿#lang racket
+#lang racket
 Intensive Program Design
 ========================
 

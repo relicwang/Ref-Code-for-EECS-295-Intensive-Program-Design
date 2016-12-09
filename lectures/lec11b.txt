@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname lec11b) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 Implementing Union-Find
 -----------------------
 
@@ -56,7 +59,7 @@ Each root lists itself, and each non-root lists its parent.
 
 The ID of any vertex v is given by the fixpoint of id:
 
-  id[id[ ... id[v] ... ]] until it stops changing
+  id[id[ ... id[v] ... ]] until it stops changing //Mark: Find() algorithm in Union_Find
 
 (V[M] is syntactic sugar for (vector-ref V M).)
 

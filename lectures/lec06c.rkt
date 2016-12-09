@@ -43,7 +43,7 @@
 (check-expect (tree-size '()) 0)
 (check-expect (tree-size A-TREE) 3)
 
-;; new-node : Natural -> RandNumTree
+;; new-node : Natural RandNumTree RandNumTree-> RandNumTree
 ;; Creates a new singleton tree with the given value.
 ;;
 ;; Strategy: function composition

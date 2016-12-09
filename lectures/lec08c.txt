@@ -1,7 +1,10 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname lec08c) (read-case-sensitive #t) (teachpacks ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp")) #f)))
 graphs, representing neighbors as a function.
 
 ;; a graph is:
-;;  (make-graph nat (nat[< nodes] -> (listof nat[< nodes])))
+;;  (make-graph nat (nat[< nodes] -> (listof nat[< nodes])))  ;;[< nodes] means the "nat" is the node
 ;; the `nodes` field tells us the number of nodes in the graph
 (define-struct graph (nodes neighbor))
 
@@ -82,8 +85,8 @@ complex ones that can be made slightly simpler?
 (define (any-route-exists? graph srcs dest)
   (cond
     [(empty? srcs) #false]
-    [else (or (route-exists? (first srcs) dest graph)
-              (any-route-exists? (rest srcs) dest graph))]))
+    [else (or (route-exists? graph (first srcs) dest )
+              (any-route-exists? graph (rest srcs) dest ))]))
 
 Okay, that works for the graph above.
 
@@ -132,7 +135,7 @@ maintain it:
 (define (route-exists?/a graph src dest seen-so-far)
   (cond
    [(= src dest) #true]
-   [else (any-route-exists? graph
+   [else (any-route-exists?/a graph
 			    ((graph-neighbors graph) src)
 			    dest
 			    (cons src seen-so-far))]))

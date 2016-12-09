@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname lec07b) (read-case-sensitive #t) (teachpacks ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp")) #f)))
 generative recursion
 --------------------
 
@@ -108,10 +111,10 @@ Let say that we've figured out a number below (0) and a number about
 (10,000) the secret:
 
 Say we guess 5,000:
-
+#|
  0                        5,000                      10,000
 -----------------------------|-----------------------------
-
+|#
 If it is 'toosmall, we've eliminated half of the possibilities!
 
 If it is 'toobig, we've also eliminated half of the possibilities.

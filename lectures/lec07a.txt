@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname lec07a) (read-case-sensitive #t) (teachpacks ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp")) #f)))
 Binomial Heaps at Priority Queues
 ---------------------------------
 
@@ -25,7 +28,7 @@ in sorted order, e.g.:
        where xs is the elements of {x ...} < y and
              xl is the elements of {x ...} > y
    (find-min {x1 x2 ...}) = x1
-   (remove-min {x1 x2 ...}) = x2
+   (remove-min {x1 x2 ...}) = {x2...}
 
 The main thing to note here is no matter what order we add values to
 the heap, the find-min operation always returns the smallest element.

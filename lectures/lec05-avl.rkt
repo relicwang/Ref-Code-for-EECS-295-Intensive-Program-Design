@@ -32,7 +32,7 @@
             (build-db 2 "leaf" "leaf")
             (build-db 6 "leaf" "leaf")))
 
-;; AVL? : AVL-tree -> Number
+;; AVL? : AVL-tree -> Boolean
 ;; checks to be sure the given tree has the AVL invariant,
 ;; the BST invariant, and that the height fields are correct
 (check-expect (AVL? "leaf") #true)
@@ -52,6 +52,20 @@
                        "leaf"))))
               #false)
 
+(define tree1f1 (build-db 2 "leaf" "leaf"))
+(define tree1r1 (build-db 1 "leaf" "leaf"))
+
+(define tree1f2 (build-db 5 "leaf" "leaf"))
+(define tree1r2 (build-db 9 "leaf" "leaf"))
+
+(define tree2f1 (build-db 3 tree1f1 tree1r1))
+(define tree2f2 (build-db 4 tree1f2 tree1r2))
+
+(define tree3   (build-db 7 tree2f1 tree2f2))
+
+(check-expect (AVL? tree3) #false)
+
+
 ;; Strategy: struct. decomp.
 (define (AVL? tree)
   (cond
@@ -59,22 +73,26 @@
     [else
      (and (AVL? (db-left tree))
           (AVL? (db-right tree))
-          (= (db-height tree) (compute-height tree))
-          (values-all? < (db-value tree) (db-left tree))
-          (values-all? > (db-value tree) (db-right tree))
-          (<= -1
+          
+          (= (db-height tree) (compute-height tree))     ;;BST invariance
+          (values-all? > (db-value tree) (db-left tree)) ;;BST invariance
+          (values-all? < (db-value tree) (db-right tree))
+          
+          (<= -1                                 ;;AVL invariance
               (- (height (db-left tree))
                  (height (db-right tree)))
-              1))]))
+              1)
+          )]))
 
 ;; values-all? : (Number Number -> Boolean) Number AVL-tree -> Boolean
 ;; to determine if all of the values in 'tree' are 'cmp' than 'val'
 (check-expect (values-all? < 0 "leaf") #true)
-(check-expect (values-all? > 0 (build-db 2
+(check-expect (values-all? > 0 "leaf") #true)
+(check-expect (values-all? < 0 (build-db 2
                                          (build-db 1 "leaf" "leaf")
                                          (build-db 3 "leaf" "leaf")))
               #true)
-(check-expect (values-all? > 1 (build-db 2
+(check-expect (values-all? < 1 (build-db 2
                                          (build-db 1 "leaf" "leaf")
                                          (build-db 3 "leaf" "leaf")))
               #false)
@@ -82,7 +100,7 @@
 (define (values-all? cmp val tree)
   (cond
     [(equal? tree "leaf") #true]
-    [else (and (cmp (db-value tree) val)
+    [else (and (cmp val (db-value tree))
                (values-all? cmp val (db-left tree))
                (values-all? cmp val (db-right tree)))]))
 

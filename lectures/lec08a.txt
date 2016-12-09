@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname lec08a) (read-case-sensitive #t) (teachpacks ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "universe.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp")) #f)))
 accumulators
 ------------
 
@@ -236,7 +239,7 @@ write accumulators.
     the function is being processed by another recursive function,
     consider an accumulator.
 
-  - the the function is generative, it's harder. In general,
+  - if the function is generative, it's harder. In general,
     you have to notice that you need some additional
     information to be able to compute the answer
     properly. That becomes the accumulator.

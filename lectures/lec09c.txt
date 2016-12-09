@@ -1,13 +1,76 @@
-Alright, lets try do something useful with this. Lets say that we
+#lang dssl
+
+#|Alright, lets try do something useful with this. Lets say that we
 wanted to maintain a phonebook database with functions that have these
-contracts:
+contracts:|#
+
+;;A record is either
+;;-(make-record string number)
+;;-"Null"
+(define-struct record (name number))
+
+;;A database is either
+;; -"Empty"
+;; -(make-db record database)
+
+(define-struct db (record database))
+
+(define empty-db (make-db "Null" "Empty"))
+;;Declare an sample databse
+(define record-db (make-db "Null" "Empty"))
+
 
 ;; add : String Number -> void
 ;; EFFECT: updates the database to record a new name
 
+(define (add name phone)
+  (local [(define a-record (make-record name phone))]
+  
+      (set-db-database! record-db (make-db (db-record record-db) (db-database record-db)))
+      (set-db-record! record-db a-record)))
+                               
+(add "relic" 1)
+(add "jack" 2)
+(add "ken" 3)
+(add "lincoln" 4)
+
 ;; lookup : String -> Number or #false
 ;; returns the number of a person in the database, if they are there
+(define (lookup name)
+  (lookup-helper name record-db) )
 
+(define (lookup-helper name db)
+  (cond
+    [(equal? db empty-db) #false]
+    [else
+     (cond             
+         [(equal? name (record-name (db-record db))) (record-number (db-record db))]
+         [else
+          (lookup-helper name (db-database db))])]))
+
+
+;; delete : String -> void or #false
+;; delete the record of a person in the database, if does not exist return #false
+(define (delete name)
+  (delete-helper name record-db) )
+
+(define (delete-helper name db)
+  (cond
+    [(equal? db empty-db ) #false]
+    [(equal? (record-name(db-record db)) name)
+     (set-db-record!   db (db-record (db-database db)) )
+     (set-db-database! db (db-database (db-database db)) )]
+    [(equal? (db-database db) empty-db) #false]
+    [else
+     (cond             
+         [(equal? name (record-name (db-record (db-database db))))
+          (set-db-database! db (db-database (db-database db)) )
+          ]
+         [else
+          (delete-helper name (db-database db))])]))
+
+
+#|
 With these contracts, we see that there is no actual database
 mentioned anywhere. Why would this be useful to someone actually
 programming?
@@ -18,3 +81,5 @@ the website (and this website isn't implemented using 2htdp/universe
 -- or, perhaps you are implementing 2htdp/universe!)
 
 [ Design the needed data definitions and implement these functions ]
+
+|#

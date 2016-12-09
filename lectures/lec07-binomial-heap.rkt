@@ -66,6 +66,7 @@
 (define-struct node (value children))
 
 ;; find-min : Binomial-Heap -> [Or Number #f]
+
 (define (find-min b)
   (cond
     [(empty? b) #f]

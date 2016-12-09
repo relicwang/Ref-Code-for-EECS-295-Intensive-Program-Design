@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname 05-itemizations) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname lec02c) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;;;;; Itemizations ;;;;;
 
 (require 2htdp/universe)
@@ -512,7 +512,7 @@
                (text "1:10:06" TEXT-SIZE TEXT-COLOR)
                MT))
 
-#;
+
 (big-bang (make-running WORLD0)
           (on-tick update-fcdt 1)
           (on-draw draw-fcdt)
