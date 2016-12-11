@@ -60,7 +60,7 @@ Here is what we get:
   (cond
     [(empty? (rest l)) (first l)]
     [else
-     (local [(define rb (smallest (rest l)))]
+     (local [(define rb (est (rest l)))]
        (cond
          [(p (first l) rb)
           rb]
