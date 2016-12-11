@@ -32,7 +32,7 @@
             (build-db 2 "leaf" "leaf")
             (build-db 6 "leaf" "leaf")))
 
-;; AVL? : AVL-tree -> Number
+;; AVL? : AVL-tree -> Boolean
 ;; checks to be sure the given tree has the AVL invariant,
 ;; the BST invariant, and that the height fields are correct
 (check-expect (AVL? "leaf") #true)
