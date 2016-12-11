@@ -164,7 +164,7 @@ And, in general:
 
 Here's the mathematically precise definition:
 
- O(f) = {g | exists n0, m: forall n > n0, f(n) <= m*g(n) }
+; O(f) = {g | exists n0, m: for all n > n0, g(n) <= m*f(n) }
 
 What is this saying intuitively? Think of "n0" as indicating where the
 input got big enough and "m" as that newer computer that speeds things
@@ -189,28 +189,33 @@ so that should be true of the number max(c,n)+1 because it is true of
 all numbers. Lets call max(c,n)=X.
 
    (X+1)*(X+1) <= c*(X+1)
-   X^2+2*X+1 <= c*X+1
-   X^2+2*X <= c*X
+   X^2+2*X+1 <= c*X+c
+   X^2+2*X <= c*X+(c-1)
+
 
 expand out X:
 
-   max(c,n)*max(c,n) + 2*max(c,n) <= c*max(c,n)
+   max(c,n)*max(c,n) + 2*max(c,n) <= c*max(c,n)+(c-1)
 
 Okay, so we know that c and n must be related to each other by
 >=. Lets first assume that c >= n and thus we can simplify the uses of
 max
 
-     c*c + c*c <= c*c
+     c*c + 2*c <= c*c+(c-1)
+   => c <= -1
 
-which tells us that c = 0 (that's the only way to satisfy that).  but
-we know that n is at least 1 and we know that c >= n, so c =/= 0.
+which tells us that c <= -1, but
+we know that n is at least 1 and we know that c >= n, so c must greater than 0.
 
 OKay, so it must be the case that n > c. Simplify again:
 
-   n*n+2*n <= c*n
+   n*n+2*n <= c*n+(c-1)
+ => n*n+(2-c)*n-(c-1)<=0
 
-But this can't be either. Since we know that 2*n is at least 2, and
-that n > c, this inequation can't possibly be true.
+But this can't be either. Since this parabola is facing up, with the condition
+for all n > n0, this inequation can't possibly be true. That is, when n is greater than
+the quadratic formula root (if exists), the quadratic formula (n*n+(2-c)*n-(c-1)) must greater than 0.
+Otherwise, if the formula root does not exist, the quadratic formula is always greater than 0.
 
   Contradiction.
 
