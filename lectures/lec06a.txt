@@ -53,7 +53,7 @@ How would you represent queues?
 Here are two ideas:
 
   - Represent the queue «a0 a1 a2« as (cons a0 (cons a1 (cons a2 '())))
-  - Represent the queue «a0 a1 a2« as (cons a2 (cons a2 (cons a0 '())))
+  - Represent the queue «a0 a1 a2« as (cons a2 (cons a1 (cons a0 '())))
 
 Which do you prefer? Why? Let’s implement them.
 
