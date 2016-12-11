@@ -236,7 +236,7 @@ write accumulators.
     the function is being processed by another recursive function,
     consider an accumulator.
 
-  - the the function is generative, it's harder. In general,
+  - if the function is generative, it's harder. In general,
     you have to notice that you need some additional
     information to be able to compute the answer
     properly. That becomes the accumulator.
