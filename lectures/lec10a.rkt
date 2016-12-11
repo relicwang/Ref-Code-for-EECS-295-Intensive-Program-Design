@@ -141,7 +141,7 @@
 ; *LIST-STACK* : *CONTAINER*
 (define *LIST-STACK*
   (local
-    ((define-struct list-stack (list)))
+    [(define-struct list-stack (list))]
     (make-container
      (lambda () (make-list-stack '()))
      (lambda (s) (empty? (list-stack-list s)))
