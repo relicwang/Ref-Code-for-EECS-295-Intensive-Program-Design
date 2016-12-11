@@ -21,7 +21,7 @@ Lets consider family trees:
                                             |
                                     +---------------+
                                     | Gustav (1988) |
-                                    | Eyes: brown   |
+                                    | Eyes: Brown   |
                                     +---------------+
 
 Thinking about these as parents who have children that themselves have
