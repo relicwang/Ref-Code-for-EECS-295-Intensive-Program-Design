@@ -71,7 +71,7 @@ complex ones that can be made slightly simpler?
 ;; route-exists? : graph nat nat -> boolean
 (check-expect (route-exists? a-graph 0 3) #t)
 (check-expect (route-exists? a-graph 0 2) #f)
-(define (route-exists? g src dest)
+(define (route-exists? graph src dest)
   (cond
    [(= src dest) #true]
    [else (any-route-exists? graph
@@ -82,8 +82,8 @@ complex ones that can be made slightly simpler?
 (define (any-route-exists? graph srcs dest)
   (cond
     [(empty? srcs) #false]
-    [else (or (route-exists? (first srcs) dest graph)
-              (any-route-exists? (rest srcs) dest graph))]))
+    [else (or (route-exists? graph (first srcs) dest)
+              (any-route-exists? graph (rest srcs) dest))]))
 
 Okay, that works for the graph above.
 
@@ -132,7 +132,7 @@ maintain it:
 (define (route-exists?/a graph src dest seen-so-far)
   (cond
    [(= src dest) #true]
-   [else (any-route-exists? graph
+   [else (any-route-exists?/a graph
 			    ((graph-neighbors graph) src)
 			    dest
 			    (cons src seen-so-far))]))
