@@ -214,9 +214,9 @@ so we can replace the Xs with ns.:
 
 But this can't be either. To see why, first consider the case where
 m=0. The equation cannot hold then because we have a natural number on
-the left (n^2 + 2*n) which must be less than -1.
+the left (n^2 + 2*n) which must be greater than -1.
 
-Okay, so if this is to work, then m must be at least 1. But this also
+Okay, so if this is not work, then m must be at least 1. But this also
 won't work out.  To see why, first look at the first term of each
 side, n^2 and m*n. We know that n^2 > m*n because n>m. Now look at the
 second term of each side, 2*n and m-1. Also because n>m, 2*n >
