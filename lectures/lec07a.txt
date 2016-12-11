@@ -25,7 +25,7 @@ in sorted order, e.g.:
        where xs is the elements of {x ...} < y and
              xl is the elements of {x ...} > y
    (find-min {x1 x2 ...}) = x1
-   (remove-min {x1 x2 ...}) = x2
+   (remove-min {x1 x2 ...}) = {x2...} (where x1 is the the smallest entry)
 
 The main thing to note here is no matter what order we add values to
 the heap, the find-min operation always returns the smallest element.
